@@ -1,0 +1,1667 @@
+/***************************************************
+Developer name : Muhammad Arif Bin Jamaluddin
+Job Position: Data Scientist, Dazztech Solutions Sdn Bhd
+Program name: mydap_project_DAP_pt_aug_2023_67696.sas
+Description: Loan application status prediction - 1-2
+Date first written: Wed, 23-Sept-2023
+Date last updated: Tue, 16-Oct-2023
+Folder name: DAP_PT_AUG_2023_TP067696
+Library name: DAP67696
+
+****************************************************/
+/* SAS Codes to display the Data dictionary of DAP67696.TRAINING_DS */
+
+PROC SQL;
+
+DESCRIBE TABLE DAP67696.TRAINING_DS;
+
+QUIT;
+
+PROC CONTENTS DATA = DAP67696.TRAINING_DS;
+
+RUN;
+
+
+/*** SAS code to display Univariate Analysis ****/
+
+/* Gender  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Gender';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE GENDER;
+
+RUN;
+
+
+/* Marital Status  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Marital Status';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE MARITAL_STATUS;
+
+RUN;
+
+
+/* Family Members  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Family Members';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE FAMILY_MEMBERS;
+
+RUN;
+
+
+/* Qualification  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Qualification';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE QUALIFICATION;
+
+RUN;
+
+
+/* Employment  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Employment';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE EMPLOYMENT;
+
+RUN;
+
+
+/* Loan History  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Loan History';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE LOAN_HISTORY;
+
+RUN;
+
+/* Loan location  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Loan location';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE LOAN_LOCATION;
+
+RUN;
+
+
+/* Loan Approval Status  */
+
+TITLE 'Figure no - Univariate Analysis of the Categorical variable: Loan Approval Status';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE LOAN_APPROVAL_STATUS;
+
+RUN;
+
+
+/** SAS Code to display continous/numeric variable***/
+
+
+TITLE 'Figure number - Univariate analysis of the continous/numeric variable: GUARANTEE_INCOME';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
+
+VAR GUARANTEE_INCOME;
+
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+
+PROC SGPLOT DATA = DAP67696.TRAINING_DS;
+
+HISTOGRAM GUARANTEE_INCOME;
+
+TITLE 'Figure number - Univariate analysis of the continuous/numeric variable: GUARANTEE_INCOME';
+
+RUN;
+
+
+
+TITLE 'Figure number - Univariate analysis of the continous/numeric variable: LOAN_DURATION';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
+
+VAR LOAN_DURATION;
+
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+
+PROC SGPLOT DATA = DAP67696.TRAINING_DS;
+
+HISTOGRAM LOAN_DURATION;
+
+TITLE 'Figure number - Univariate analysis of the continuous/numeric variable: LOAN_DURATION';
+
+RUN;
+
+
+
+TITLE 'Figure number - Univariate analysis of the continous/numeric variable: LOAN_AMOUNT';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
+
+VAR LOAN_AMOUNT;
+
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+
+PROC SGPLOT DATA = DAP67696.TRAINING_DS;
+
+HISTOGRAM LOAN_AMOUNT;
+
+TITLE 'Figure number - Univariate analysis of the continuous/numeric variable: LOAN_AMOUNT';
+
+RUN;
+
+
+
+
+TITLE 'Figure number - Univariate analysis of the continous/numeric variable: CANDIDATE_INCOME';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS N NMISS MIN MAX MEAN MEDIAN STD;
+
+VAR CANDIDATE_INCOME;
+
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+
+PROC SGPLOT DATA = DAP67696.TRAINING_DS;
+
+HISTOGRAM CANDIDATE_INCOME;
+
+TITLE 'Figure number - Univariate analysis of the continuous/numeric variable: CANDIDATE_INCOME';
+
+RUN;
+
+
+
+
+
+
+
+/** SAS code to display bivariate analysis of categorical vs categorical variable **/
+
+TITLE1 'Figure number Bivariate analysis of the variable: ';
+TITLE2 'Categorical variable[GENDER] vs Categorical variable[MARITAL_STATUS]';
+FOOTNOTE '--------END------';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE gender * marital_status/
+PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
+
+RUN; 
+
+
+TITLE1 'Figure number Bivariate analysis of the variable: ';
+TITLE2 'Categorical variable[GENDER] vs Categorical variable[EMPLOYMENT]';
+FOOTNOTE '--------END------';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE gender * employment/
+PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
+
+RUN; 
+
+TITLE1 'Figure number Bivariate analysis of the variable: ';
+TITLE2 'Categorical variable[LOAN_LOCATION] vs Categorical variable[LOAN_HISTORY]';
+FOOTNOTE '--------END------';
+
+PROC FREQ DATA = DAP67696.TRAINING_DS;
+
+TABLE loan_location * loan_history/
+PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
+
+RUN; 
+
+
+/*** SAS code to display bivariate analysis of categorical vs continous variable **/
+
+
+TITLE1 'Figure number: Bivariate analysis of variable: ';
+TITLE2 'Categorical variable[GENDER] vs Numeric/Continous variable[LOAN_DURATION]';
+FOOTNOTE '-----END-----';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS;
+
+CLASS gender; /* It is a Categorical variable*/
+VAR loan_duration; /* It is a Numeric/Continous variable */
+
+RUN;
+
+
+TITLE1 'Figure number: Bivariate analysis of variable: ';
+TITLE2 'Categorical variable[LOAN_HISTORY] vs Numeric/Continous variable[CANDIDATE_INCOME]';
+FOOTNOTE '-----END-----';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS;
+
+CLASS loan_history; /* It is a Categorical variable*/
+VAR candidate_income; /* It is a Numeric/Continous variable */
+
+RUN;
+
+
+TITLE1 'Figure number: Bivariate analysis of variable: ';
+TITLE2 'Categorical variable[QUALIFICATION] vs Numeric/Continous variable[LOAN_AMOUNT]';
+FOOTNOTE '-----END-----';
+
+PROC MEANS DATA = DAP67696.TRAINING_DS;
+
+CLASS qualification; /* It is a Categorical variable*/
+VAR loan_amount; /* It is a Numeric/Continous variable */
+
+RUN;
+
+
+/* The SAS Macro begins */
+OPTIONS MCOMPILENOTE=ALL;
+%MACRO MACRO_UVACATEVARI(ptitle_name,pds_name,pcate_vari_name);
+TITLE &ptitle_name;
+
+PROC FREQ DATA = &pds_name;
+
+TABLE &pcate_vari_name;
+
+RUN;
+%MEND MACRO_UVACATEVARI;
+
+/* The SAS Macro ends */ 
+
+/* To call the MACRO_UVACATEVARI for the categorical variable */
+
+/* LOAN_LOCATION */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - LOAN_LOCATION', DAP67696.TESTING_DS, LOAN_LOCATION);
+
+/* GENDER */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - GENDER', DAP67696.TESTING_DS, GENDER);
+
+/* MARITAL_STATUS */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - MARITAL_STATUS', DAP67696.TESTING_DS, MARITAL_STATUS);
+
+/* FAMILY_MEMBERS */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - FAMILY_MEMBERS', DAP67696.TESTING_DS, FAMILY_MEMBERS);
+
+/* QUALIFICATION */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - QUALIFICATION', DAP67696.TESTING_DS, QUALIFICATION);
+
+/* EMPLOYMENT */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - EMPLOYMENT', DAP67696.TESTING_DS, EMPLOYMENT);
+
+/* LOAN_HISTORY */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - LOAN_HISTORY', DAP67696.TESTING_DS, LOAN_HISTORY);
+
+/* LOAN_APPROVAL_STATUS */
+%MACRO_UVACATEVARI ('Univariate Analysis of the variable - LOAN_APPROVAL_STATUS',DAP67696.TESTING_DS, LOAN_APPROVAL_STATUS);
+
+
+
+/*The SAS MACRO begin here*/
+
+OPTIONS MCOMPILENOTE=ALL;
+%MACRO MACRO_UVACONTI_VARI(ptitle,pds_name,pcontinue_vari_name);
+TITLE &ptitle;
+
+PROC MEANS DATA = &pds_name N NMISS MIN MAX MEAN MEDIAN STD;
+
+VAR &pcontinue_vari_name;
+
+RUN;
+
+ODS GRAPHICS / RESET WIDTH = 4.0 IN HEIGHT = 3.0 IN IMAGEMAP;
+
+PROC SGPLOT DATA = &pds_name;
+
+HISTOGRAM &pcontinue_vari_name;
+
+TITLE &ptitle;
+
+RUN;
+%MEND MACRO_UVACONTI_VARI;
+/* The SAS MACRO ends here*/
+
+
+/* To call the SAS MACRO - MACRO_UVACONTI_VARI */
+
+/* CANDIDATE_INCOME */
+%MACRO_UVACONTI_VARI('Univariate Analysis of the continous variable - CANDIDATE_INCOME' , DAP67696.TESTING_DS, candidate_income);
+
+/* GUARANTEE_INCOME */
+%MACRO_UVACONTI_VARI('Univariate Analysis of the continous variable - GUARANTEE_INCOME' , DAP67696.TESTING_DS, guarantee_income);
+
+/* LOAN_AMOUNT */
+%MACRO_UVACONTI_VARI('Univariate Analysis of the continous variable - LOAN_AMOUNT' , DAP67696.TESTING_DS, loan_amount);
+
+/* LOAN_DURATION */
+%MACRO_UVACONTI_VARI('Univariate Analysis of the continous variable - LOAN_DURATION' , DAP67696.TESTING_DS, loan_duration);
+
+
+
+/* The SAS MACRO begins here */
+OPTIONS MCOMPILENOTE=ALL;
+%MACRO MACRO_BVA_CATE_CATE(ptitle1,ptitle2,pds_name,pcate_vari_name1,pcate_vari_name2);
+TITLE1 &ptitle1;
+TITLE2 &ptitle2;
+FOOTNOTE '--------END------';
+
+PROC FREQ DATA = &pds_name;
+
+TABLE &pcate_vari_name1 * &pcate_vari_name2/
+PLOTS = FREQPLOT( TWOWAY = STACKED SCALE = GROUPPCT );
+
+RUN; 
+%MEND MACRO_BVA_CATE_CATE;
+/* The SAS MACRO ends here*/
+
+
+/* To call the SAS MACRO - MACRO_BVA_CATE_CATE */
+
+/* Gender vs loan_location*/
+%MACRO_BVA_CATE_CATE('Bivariate Analysis of the variables',
+'Categorical variable vs Categorical variable',
+DAP67696.TESTING_DS, GENDER, LOAN_LOCATION);
+
+/* Gender vs loan_history*/
+%MACRO_BVA_CATE_CATE('Bivariate Analysis of the variables',
+'Categorical variable vs Categorical variable',
+DAP67696.TESTING_DS, GENDER, LOAN_HISTORY);
+
+/* Marital_status vs loan_location*/
+%MACRO_BVA_CATE_CATE('Bivariate Analysis of the variables',
+'Categorical variable vs Categorical variable',
+DAP67696.TESTING_DS, MARITAL_STATUS, LOAN_LOCATION);
+
+
+
+/* The SAS MACRO begins here*/
+OPTIONS MCOMPILENOTE=ALL;
+%MACRO MACRO_BVACATE_CONTI(ptitle1,ptitle2,pds_name,pcate_vari_name,pconti_vari_name);
+TITLE1 &ptitle1;
+TITLE2 &ptitle2;
+
+
+PROC MEANS DATA = &pds_name;
+
+CLASS &pcate_vari_name; /* It is a Categorical variable*/
+VAR &pconti_vari_name; /* It is a Numeric/Continous variable */
+
+RUN;
+%MEND MACRO_BVACATE_CONTI;
+
+/* The SAS MACRO ends here*/
+
+
+/* To call the SAS MACRO - MACRO_BVACATE_CONTI */
+
+/* loan location vs loan amount */
+%MACRO_BVACATE_CONTI('Bivariate Analysis of the variables :', 'Categorical vs Continous', DAP67696.TESTING_DS,
+LOAN_LOCATION,LOAN_AMOUNT);
+
+/* family members vs loan duration */
+%MACRO_BVACATE_CONTI('Bivariate Analysis of the variables :', 'Categorical vs Continous', DAP67696.TESTING_DS,
+FAMILY_MEMBERS,LOAN_DURATION);
+
+
+/* employment vs guarantee income */
+%MACRO_BVACATE_CONTI('Bivariate Analysis of the variables :', 'Categorical vs Continous', DAP67696.TESTING_DS,
+EMPLOYMENT,GUARANTEE_INCOME);
+
+
+
+
+/* For Categorical variable*/
+/* GENDER*/
+
+/* STEP - 1: List the details of the loan application with missing 'GENDER' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'GENDER' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.gender IS MISSING ) OR
+        ( e.gender eq '' ) );
+QUIT;
+
+
+
+
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with GENDER details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with GENDER details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.gender IS MISSING ) OR
+        ( e.gender eq '' ) );
+
+QUIT;
+
+
+
+
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_GENDER_STAT_DS AS
+SELECT e.gender AS gender,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.gender IS NOT MISSING ) OR
+        ( e.gender ne '' ) )
+GROUP BY e.gender;
+
+QUIT;
+
+
+
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+( SELECT MAX(t.counts) Label = 'highest_count'
+  FROM DAP67696.TRAINING_GENDER_STAT_DS t );
+   /* Above is a sub-program to find the highest count */
+
+QUIT;
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.gender
+FROM DAP67696.TRAINING_GENDER_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_GENDER_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+
+
+
+
+/* STEP 5: Make a copy of the dataset DAP67696.TRAINING_DS */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_BK_DS AS
+SELECT*
+FROM DAP67696.TRAINING_DS;
+
+QUIT;
+
+
+
+
+
+
+/* STEP 6: Impute the missing values found in the variable - GENDER */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET gender = ( SELECT t.gender
+               FROM DAP67696.TRAINING_GENDER_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_GENDER_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( gender IS MISSING ) OR
+        ( gender eq '' ) );
+        
+QUIT;
+
+
+
+
+
+/* STEP - 7: (AI) List the details of the loan application with missing 'GENDER' details */
+TITLE "STEP 7 (AI): List the details of the loan applicants with missing 'GENDER' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.gender IS MISSING ) OR
+        ( e.gender eq '' ) );
+QUIT;
+
+
+
+
+/* MARITAL_STATUS*/
+
+/* STEP - 1: List the details of the loan application with missing 'marital_status' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'MARITAL_STATUS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.marital_status IS MISSING ) OR
+        ( e.marital_status eq '' ) );
+QUIT;
+
+
+
+
+/* STEP - 2: Find the statistics and save the statistics in a temporary dataset */
+PROC SQL;
+
+
+CREATE TABLE DAP67696.TRAINING_MS_STAT_DS AS
+SELECT e.marital_status AS marital_status,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.marital_status IS NOT MISSING ) OR
+        ( e.marital_status ne '' ) )
+GROUP BY e.marital_status;
+
+QUIT;
+
+
+
+
+/* STEP 3: Impute the missing values found in the variable - MARITAL_STATUS */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET marital_status = ( SELECT t.marital_status
+               FROM DAP67696.TRAINING_MS_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_MS_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( marital_status IS MISSING ) OR
+        ( marital_status eq '' ) );
+        
+QUIT;
+
+
+
+
+/* STEP - 4: List the details of the loan application with missing 'marital_status' details */
+
+TITLE "STEP 4: List the details of the loan applicants with missing 'MARITAL_STATUS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.marital_status IS MISSING ) OR
+        ( e.marital_status eq '' ) );
+QUIT;
+
+
+
+/* FAMILY_MEMBERS*/
+
+
+/* STEP - 1: List the details of the loan application with missing 'FAMILY_MEMBERS' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'FAMILY_MEMBERS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.family_members IS MISSING ) OR
+        ( e.family_members eq '' ) );
+QUIT;
+
+
+
+/* STEP - 2: Find the statistics and save the statistics in a temporary dataset */
+PROC SQL;
+
+
+CREATE TABLE DAP67696.TRAINING_FM_STAT_DS AS
+SELECT t.family_members AS family_members ,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.family_members IS NOT MISSING ) OR
+        ( t.family_members ne '' ) )
+GROUP BY t.family_members;
+
+QUIT;
+
+
+/* STEP 3: List the details of the loan application with '3+' family members */
+TITLE "List the details of the loan application with '3+' family members";
+FOOTNOTE '------End-------';
+
+PROC SQL;
+
+/*3+ SUBSTAR(family_members,1,1) UBSTR(family_members,2,1)*/
+
+SELECT t.family_members,
+substr(t.family_members,1,1) Label = '1,1',
+substr(t.family_members,2,1) Label = '2,1'
+FROM DAP67696.TRAINING_DS t 
+WHERE ( t.family_members eq '3+' );
+
+QUIT; 
+
+
+
+/* STEP 4: Remove the '+' found in the family members variable and update the dataset DAP67696.TRAINING_DS */
+
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET family_members =  substr(family_members,1,1) 
+WHERE ( family_members eq '3+' );
+
+QUIT;
+
+
+
+/* STEP - 5: (After removing the + symbol found in the family_members variable ) */
+PROC SQL;
+
+
+CREATE TABLE DAP67696.TRAINING_FM_STAT_DS AS
+SELECT t.family_members AS family_members,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.family_members IS NOT MISSING ) OR
+        ( t.family_members ne '' ) )
+GROUP BY t.family_members;
+
+QUIT;
+
+
+
+/* STEP 6: Impute the missing values found in the variable - FAMILY_MEMBERS */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET family_members = ( SELECT t.family_members
+               FROM DAP67696.TRAINING_FM_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                  FROM DAP67696.TRAINING_FM_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( family_members IS MISSING ) OR
+        ( family_members eq '' ) );
+        
+QUIT;
+
+
+/* STEP - 7: (After I) List the details of the loan applicants with missing 'FAMILY_MEMBERS' details */
+
+TITLE "STEP 7: List the details of the loan applicants with missing 'FAMILY_MEMBERS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.family_members IS MISSING ) OR
+        ( e.family_members eq '' ) );
+        
+QUIT;
+
+/* Do for other categorical variables */
+
+/* QUALIFICATION*/
+
+
+/* STEP - 1: List the details of the loan application with missing 'QUALIFICATION' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'QUALIFICATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.qualification IS MISSING ) OR
+        ( e.qualification eq '' ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with QUALIFICATION details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with QUALIFICATION details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.qualification IS MISSING ) OR
+        ( e.qualification eq '' ) );
+
+QUIT;
+
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_QUALIFICATION_STAT_DS AS
+SELECT e.qualification AS qualification,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.qualification IS NOT MISSING ) OR
+        ( e.qualification ne '' ) )
+GROUP BY e.qualification;
+
+QUIT;
+
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.qualification
+FROM DAP67696.TRAINING_QUALIFICATION_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_QUALIFICATION_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+/* STEP 5: Impute the missing values found in the variable - QUALIFICATION */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET qualification = ( SELECT t.qualification
+               FROM DAP67696.TRAINING_QUALIFICATION_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_QUALIFICATION_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( qualification IS MISSING ) OR
+        ( qualification eq '' ) );
+        
+QUIT;
+
+/* STEP - 6: (AI) List the details of the loan application with missing 'QUALIFICATION' details */
+TITLE "STEP 6 (AI): List the details of the loan applicants with missing 'QUALIFICATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.qualification IS MISSING ) OR
+        ( e.qualification eq '' ) );
+QUIT;
+
+
+/* EMPLOYMENT*/
+
+/* STEP - 1: List the details of the loan application with missing 'EMPLOYMENT' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'EMPLOYMENT' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.employment IS MISSING ) OR
+        ( e.employment eq '' ) );
+QUIT;
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with EMPLOYMENT details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with EMPLOYMENT details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.employment IS MISSING ) OR
+        ( e.employment eq '' ) );
+
+QUIT;
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_EMPLOYMENT_STAT_DS AS
+SELECT e.employment AS employment,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.employment IS NOT MISSING ) OR
+        ( e.employment ne '' ) )
+GROUP BY e.employment;
+
+QUIT;
+
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.employment
+FROM DAP67696.TRAINING_EMPLOYMENT_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_EMPLOYMENT_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+
+
+/* STEP 5: Impute the missing values found in the variable - EMPLOYMENT */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET employment = ( SELECT t.employment
+               FROM DAP67696.TRAINING_EMPLOYMENT_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_EMPLOYMENT_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( employment IS MISSING ) OR
+        ( employment eq '' ) );
+        
+QUIT;
+
+
+/* STEP - 6: (AI) List the details of the loan application with missing 'EMPLOYMENT' details */
+TITLE "STEP 6 (AI): List the details of the loan applicants with missing 'EMPLOYMENT' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.employment IS MISSING ) OR
+        ( e.employment eq '' ) );
+QUIT;
+
+
+/*LOAN_HISTORY*/
+
+/* STEP - 1: List the details of the loan application with missing 'LOAN_HISTORY' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'LOAN_HISTORY' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_history IS MISSING ) OR
+        ( e.loan_history eq . ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with LOAN_HISTORY details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with LOAN_HISTORY details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_history IS MISSING ) OR
+        ( e.loan_history eq . ) );
+
+QUIT;
+
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_LOAN_HISTORY_STAT_DS AS
+SELECT e.loan_history AS loan_history,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_history IS NOT MISSING ) OR
+        ( e.loan_history ne . ) )
+GROUP BY e.loan_history;
+
+QUIT;
+
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.loan_history
+FROM DAP67696.TRAINING_LOAN_HISTORY_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_LOAN_HISTORY_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+
+/* STEP 5: Impute the missing values found in the variable - LOAN_HISTORY */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET loan_history = ( SELECT t.loan_history
+               FROM DAP67696.TRAINING_LOAN_HISTORY_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_LOAN_HISTORY_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( loan_history IS MISSING ) OR
+        ( loan_history eq . ) );
+        
+QUIT;
+
+/* STEP - 6: (AI) List the details of the loan application with missing 'LOAN_HISTORY' details */
+TITLE "STEP 6 (AI): List the details of the loan applicants with missing 'LOAN_HISTORY' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_history IS MISSING ) OR
+        ( e.loan_history eq . ) );
+QUIT;
+
+
+
+/*LOAN_LOCATION*/
+
+/* STEP - 1: List the details of the loan application with missing 'LOAN_LOCATION' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'LOAN_LOCATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_location IS MISSING ) OR
+        ( e.loan_location eq '' ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with LOAN_LOCATION details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with LOAN_LOCATION details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_location IS MISSING ) OR
+        ( e.loan_location eq '' ) );
+
+QUIT;
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_LOAN_LOCATION_STAT_DS AS
+SELECT e.loan_location AS loan_location,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_location IS NOT MISSING ) OR
+        ( e.loan_location ne '' ) )
+GROUP BY e.loan_location;
+
+QUIT;
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.loan_location
+FROM DAP67696.TRAINING_LOAN_LOCATION_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_LOAN_LOCATION_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+/* STEP 5: Impute the missing values found in the variable - LOAN_LOCATION */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET loan_location = ( SELECT t.loan_location
+               FROM DAP67696.TRAINING_LOAN_LOCATION_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_LOAN_LOCATION_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( loan_location IS MISSING ) OR
+        ( loan_location eq '' ) );
+        
+QUIT;
+
+/* STEP - 6: (AI) List the details of the loan application with missing 'LOAN_LOCATION' details */
+TITLE "STEP 6 (AI): List the details of the loan applicants with missing 'LOAN_LOCATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_location IS MISSING ) OR
+        ( e.loan_location eq '' ) );
+QUIT;
+
+
+/*LOAN_APPROVAL_STATUS*/
+
+/* STEP - 1: List the details of the loan application with missing 'LOAN_APPROVAL_STATUS' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'LOAN_APPROVAL_STATUS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_approval_status IS MISSING ) OR
+        ( e.loan_approval_status eq '' ) );
+QUIT;
+
+/* STEP - 2: Find the total number of loan applicants who submitted their loan applications with LOAN_APPROVAL_STATUS details */
+
+TITLE 'STEP 2 Find the total number of loan applicants who submitted their loan applications with LOAN_APPROVAL_STATUS details';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of Loan applicants'
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_approval_status IS MISSING ) OR
+        ( e.loan_approval_status eq '' ) );
+
+QUIT;
+
+/* STEP - 3: Find the statistics and save the statistics in a temporary dataset */
+
+PROC SQL;
+
+CREATE TABLE DAP67696.TRAINING_LOAN_APPROVAL_STAT_DS AS
+SELECT e.loan_approval_status AS loan_approval_status,
+       COUNT(*) AS counts
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_approval_status IS NOT MISSING ) OR
+        ( e.loan_approval_status ne '' ) )
+GROUP BY e.loan_approval_status;
+
+QUIT;
+
+
+/* STEP 4: Find the Mod ... */
+
+PROC SQL;
+
+SELECT t.loan_approval_status
+FROM DAP67696.TRAINING_LOAN_APPROVAL_STAT_DS t
+WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest_count'
+                    FROM DAP67696.TRAINING_LOAN_APPROVAL_STAT_DS t );
+                    /* Above is a sub-program to find the highest count */
+QUIT;
+
+/* STEP 5: Impute the missing values found in the variable - LOAN_APPROVAL_STATUS */
+
+PROC SQL;
+
+UPDATE DAP67696.TRAINING_DS
+SET loan_approval_status = ( SELECT t.loan_approval_status
+               FROM DAP67696.TRAINING_LOAN_APPROVAL_STAT_DS t
+               WHERE t.counts eq ( SELECT MAX(t.counts) Label = 'highest count'
+                                   FROM DAP67696.TRAINING_LOAN_APPROVAL_STAT_DS t ) )
+                                  /* Above is a sub-program to find the highest count */
+WHERE ( ( loan_approval_status IS MISSING ) OR
+        ( loan_approval_status eq '' ) );
+        
+QUIT;
+
+/* STEP - 6: (AI) List the details of the loan application with missing 'LOAN_APPROVAL_STATUS' details */
+TITLE "STEP 6 (AI): List the details of the loan applicants with missing 'LOAN_APPROVAL_STATUS' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TRAINING_DS e
+WHERE ( ( e.loan_approval_status IS MISSING ) OR
+        ( e.loan_approval_status eq '' ) );
+QUIT;
+
+
+
+
+/* For Continous variable*/
+
+
+/* LOAN_AMOUNT */
+
+/* STEP - 1: List the details of the loan applicants with missing 'LOAN_AMOUNT' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'LOAN_AMOUNT' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_amount IS MISSING ) OR
+        ( t.loan_amount eq . ) );
+QUIT;
+
+
+
+/* STEP - 2: Find the total number of the loan applicants with missing 'LOAN_AMOUNT' details */
+
+TITLE "STEP 2: List the details of the loan applicants with missing 'LOAN_AMOUNT' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of applicants'
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_amount IS MISSING ) OR
+        ( t.loan_amount eq . ) );
+QUIT;
+
+
+
+/* STEP 3: Impute the missing values found in the variable - LOAN_AMOUNT */;
+
+PROC STDIZE DATA = DAP67696.TRAINING_DS REPONLY
+
+METHOD = MEAN OUT = DAP67696.TRAINING_DS;
+VAR loan_amount;
+
+QUIT;
+
+
+
+/* STEP - 4: (AI) List the details of the loan applicants with missing 'LOAN_AMOUNT' details */
+
+TITLE "STEP 4: List the details of the loan applicants with missing 'LOAN_AMOUNT' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_amount IS MISSING ) OR
+        ( t.loan_amount eq . ) );
+QUIT;
+
+
+
+/* LOAN_DURATION*/
+
+/* STEP - 1: List the details of the loan applicants with missing 'LOAN_DURATION' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'LOAN_DURATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_duration IS MISSING ) OR
+        ( t.loan_duration eq . ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of the loan applicants with missing 'LOAN_DURATION' details */
+
+TITLE "STEP 2: List the details of the loan applicants with missing 'LOAN_DURATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of applicants'
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_duration IS MISSING ) OR
+        ( t.loan_duration eq . ) );
+QUIT;
+
+
+/* STEP 3: Impute the missing values found in the variable - LOAN_DURATION */;
+
+PROC STDIZE DATA = DAP67696.TRAINING_DS REPONLY
+
+METHOD = MEAN OUT = DAP67696.TRAINING_DS;
+VAR loan_duration;
+
+QUIT;
+
+
+/* STEP - 4: (AI) List the details of the loan applicants with missing 'LOAN_DURATION' details */
+
+TITLE "STEP 4: List the details of the loan applicants with missing 'LOAN_DURATION' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.loan_duration IS MISSING ) OR
+        ( t.loan_duration eq . ) );
+QUIT;
+
+
+
+
+
+/* GUARANTEE_INCOME */
+
+
+/* STEP - 1: List the details of the loan applicants with missing 'GUARANTEE_INCOME' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'GUARANTEE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.guarantee_income IS MISSING ) OR
+        ( t.guarantee_income eq . ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of the loan applicants with missing 'GUARANTEE_INCOME' details */
+
+TITLE "STEP 2: List the details of the loan applicants with missing 'GUARANTEE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of applicants'
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.guarantee_income IS MISSING ) OR
+        ( t.guarantee_income eq . ) );
+QUIT;
+
+
+/* STEP 3: Impute the missing values found in the variable - GUARANTEE_INCOME */;
+
+PROC STDIZE DATA = DAP67696.TRAINING_DS REPONLY
+
+METHOD = MEAN OUT = DAP67696.TRAINING_DS;
+VAR guarantee_income;
+
+QUIT;
+
+
+/* STEP - 4: (AI) List the details of the loan applicants with missing 'GUARANTEE_INCOME' details */
+
+TITLE "STEP 4: List the details of the loan applicants with missing 'GUARANTEE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.guarantee_income IS MISSING ) OR
+        ( t.guarantee_income eq . ) );
+QUIT;
+
+
+/* CANDIDATE_INCOME */
+
+
+/* STEP - 1: List the details of the loan applicants with missing 'CANDIDATE_INCOME' details */
+
+TITLE "STEP 1: List the details of the loan applicants with missing 'CANDIDATE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.candidate_income IS MISSING ) OR
+        ( t.candidate_income eq . ) );
+QUIT;
+
+
+/* STEP - 2: Find the total number of the loan applicants with missing 'CANDIDATE_INCOME' details */
+
+TITLE "STEP 2: List the details of the loan applicants with missing 'CANDIDATE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT COUNT(*) Label = 'Number of applicants'
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.candidate_income IS MISSING ) OR
+        ( t.candidate_income eq . ) );
+QUIT;
+
+/* STEP 3: Impute the missing values found in the variable - CANDIDATE_INCOME */;
+
+PROC STDIZE DATA = DAP67696.TRAINING_DS REPONLY
+
+METHOD = MEAN OUT = DAP67696.TRAINING_DS;
+VAR candidate_income;
+
+QUIT;
+
+
+
+/* STEP - 4: (AI) List the details of the loan applicants with missing 'CANDIDATE_INCOME' details */
+
+TITLE "STEP 4: List the details of the loan applicants with missing 'CANDIDATE_INCOME' details";
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT *
+FROM DAP67696.TRAINING_DS t
+WHERE ( ( t.candidate_income IS MISSING ) OR
+        ( t.candidate_income eq . ) );
+QUIT;
+
+
+
+
+/* Model Creation */
+
+PROC LOGISTIC DATA = DAP67696.TRAINING_DS OUTMODEL = DAP67696.TRAINING_LR_MODEL;
+CLASS
+GENDER
+FAMILY_MEMBERS
+LOAN_LOCATION
+MARITAL_STATUS
+QUALIFICATION
+EMPLOYMENT
+LOAN_APPROVAL_STATUS
+LOAN_HISTORY;
+
+
+/* Above are categorical variables */
+
+MODEL LOAN_APPROVAL_STATUS = /*place here all independent variables */
+/* LOAN_APPLICATION_STATUS is a dependent variable */
+GENDER
+FAMILY_MEMBERS
+LOAN_LOCATION
+LOAN_HISTORY
+MARITAL_STATUS
+QUALIFICATION
+EMPLOYMENT
+CANDIDATE_INCOME
+GUARANTEE_INCOME
+LOAN_AMOUNT
+LOAN_DURATION;
+
+OUTPUT OUT = DAP67696.TRAINING_OUT_DS P = PPRED_PROB;
+/*PRED_PROB ->Predicted probability - variable to hold predicted probability 
+OUT -> the output will be stored in the dataset
+Akaike Information criterion must ( AIC ) < SC (Schwarz Criterion) */
+/* If Pr > ChiSq is <= 0.05, it means that independent variable is an
+important variable and is truly contributing to predict dependent variable */
+RUN;
+
+
+/*********************************
+ Predict the loan approval status using the model created
+ erewerer
+***********************************/
+
+PROC LOGISTIC INMODEL = DAP67696.TRAINING_LR_MODEL; /* It is the model the model you created */
+
+SCORE DATA = DAP67696.TRAINING_DS /* Test ds*/
+OUT = DAP67696.TESTING_PREDICTED_DS; /*Location of output */
+
+QUIT;
+
+
+
+
+/* Loan Approval Status prediction */
+TITLE 'List the details of the dataset carrying the loan approval status predicted - DAP67696.TESTING_PREDICTED_DS';
+FOOTNOTE '-----End-----';
+
+PROC SQL;
+
+SELECT*
+FROM DAP67696.TESTING_PREDICTED_DS;
+
+QUIT;
+
+
+
+
+/* List the datasets found in the SAS Library */
+
+PROC DATASETS LIBRARY = DAP67696 memtype = DATA;
+RUN;
+
+
+
+
+/*****************************************************
+Generate report using SAS ODS - Output Delivery System
+*****************************************************/
+
+ODS HTML CLOSE;
+ODS PDF CLOSE;
+
+/* Determine the physical location of pdf */
+
+ODS PDF FILE = "/home/u61522473/DAP_PT_AUG_2023_TP067696/LFI_LAS.pdf";
+OPTIONS NODATE;
+TITLE1 'Lasiandara Finance Loan Approval Status Predicted';
+TITLE2 'LFS,TPM';
+
+PROC REPORT DATA = DAP67696.TESTING_PREDICTED_DS NOWINDOWS;
+
+BY SME_LOAN_ID_NO; /* To seperate each by SME_LOAN_ID_NO */
+
+/* COLUMN SME_LOAN_ID_NO I_LOAN_APPROVAL_STATUS;*/
+
+DEFINE SME_LOAN_ID_NO / GROUP 'LOAN ID';
+DEFINE GENDER / GROUP 'GENDER NAME';
+DEFINE MARITAL_STATUS / GROUP 'MARITAL STATUS';
+DEFINE FAMILY_MEMBERS / GROUP 'FAMILY MEMBERS';
+DEFINE CANDIDATE_INCOME / GROUP 'MONTHLY INCOME';
+DEFINE GUARANTEE_INCOME / GROUP 'CO-APPLICANT INCOME';
+DEFINE LOAN_AMOUNT / GROUP 'LOAN AMOUNT';
+DEFINE LOAN_DURATION / GROUP 'LOAN DURATION';
+DEFINE LOAN_HISTORY / GROUP 'LOAN HISTORY';
+DEFINE LOAN_LOCATION / GROUP 'LOAN LOCATION';
+
+FOOTNOTE '-----End of Report------';
+RUN;
+
+
+
+
+
+
+/*******************************************
+Generate report carrying the loan approval status (without using SAS ODS)
+*******************************************/
+
+OPTIONS NODATE;
+PROC SORT DATA = DAP67696.TESTING_PREDICTED_DS OUT = DAP67696.TESTING_PREDICTED_OUT_DS;
+
+BY loan_location
+   sme_loan_id_no;
+RUN;
+
+/*OPTION NODATE; */
+
+/*Generate the report */
+
+PROC PRINT DATA =  DAP67696.TESTING_PREDICTED_OUT_DS SPLIT = '*';
+
+ id loan_location;
+ by loan_location;
+ var sme_loan_id_no
+     candidate_income
+     loan_amount
+     loan_duration
+     i_loan_approval_status;
+ sum candidate_income loan_amount;
+ 
+ label loan_location = 'LOAN LOCATION*======='
+       sme_loan_id_no = 'LOAN ID*========'
+       candidate_income = 'CANDIDATE INCOME*============='
+       loan_amount = 'LOAN AMOUNT*========='
+       loan_duration = 'LOAN DURATION*=========='
+       i_loan_approval_status = 'LOAN APPROVAL STATUS*==========';
+       
+TITLE1 'Lasiandara Finance Loan Approval Status Predicted';
+TITLE2 'LFS,TPM';
+
+RUN;
+
+
+
+/* Data Visualization */
+
+/* SAS Simple Bar Chart */
+
+/* Loan Location*/
+TITLE 'Loan Applicants VS Loan Location';
+PROC SGPLOT DATA = DAP67696.TESTING_PREDICTED_DS;
+VBAR loan_location;
+Label loan_location = 'Loan Location-------';
+RUN;
+QUIT;
+
+/* Marital Status*/
+TITLE 'Loan Applicants VS Marital Status';
+PROC SGPLOT DATA = DAP67696.TESTING_PREDICTED_DS;
+VBAR marital_status;
+Label marital_status = 'Marital Status-------';
+RUN;
+QUIT;
+
+
+/***********************************
+
+Stacked Bar Chart
+The groups were stacked one above the other
+************************************/
+
+/* Family Members */
+TITLE 'Number of family members by loan location';
+PROC SGPLOT data = DAP67696.TESTING_PREDICTED_DS;
+vbar family_members /group = loan_location groupdisplay = cluster;
+Label family_members = 'Number of family members';
+
+RUN;
+QUIT;
+
+/* Genders */
+TITLE 'Number of family members by Gender';
+PROC SGPLOT data = DAP67696.TESTING_PREDICTED_DS;
+vbar family_members /group = gender groupdisplay = cluster;
+Label family_members = 'Number of family members';
+
+RUN;
+QUIT;
+
+/***************************
+
+Pie Chart 
+A pie-chart is a representation of values as slices of a circle with different colours
+
+***************************/ 
+
+TITLE 'Loan approval status by loan location';
+
+PROC GCHART data = DAP67696.TESTING_PREDICTED_DS;
+pie3d I_LOAN_APPROVAL_STATUS;
+RUN;
+QUIT;
+
+
+/* 3D Visualization */
+TITLE 'Loan approval status by loan location';
+goptions cback=black;
+pattern1 c=red;
+pattern1 c=green; pattern1 c=green;
+PROC GCHART DATA = DAP67696.TESTING_PREDICTED_DS;
+pie3d I_LOAN_APPROVAL_STATUS/woutline=2 coutline=white
+ctext=white explore='M6' group=loan_location;
+RUN;
+QUIT;
+
+
+
+/* Advanced pie chart */
+GOPTIONS RESET=ALL BORDER;
+TITLE "Family members vs Loan Location";
+PROC GCHART DATA=DAP67696.TESTING_PREDICTED_DS;
+pie family_members / detail=loan_location
+detail_percent=best
+detail_value=none
+detail_slice=best
+detail_threshold=2
+legend;
+RUN;
+QUIT;
+
+
+/***************************************************************
+Scatter plot
+Scatterplot is a type of graph which uses values from two variables.
+It is usually used to find out the relationship between two variables.
+***************************************************************/
+
+PROC SGPLOT DATA = DAP67696.TESTING_PREDICTED_DS;
+scatter x=candidate_income y=loan_amount / group=gender;
+RUN;
+QUIT;
+
+/***************************
+ Box Plot
+***************************/
+PROC SGPLOT data = DAP67696.TESTING_PREDICTED_DS;
+vbox candidate_income / category = gender;
+RUN;
+QUIT;
+
+
+
+
+
+ 
+
+
+
